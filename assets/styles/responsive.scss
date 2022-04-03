@@ -1,0 +1,18 @@
+@media (max-width: 1200px) {
+    .jumbotron .metier {
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    .jumbotron .specialite {
+        display: flex;
+        justify-content: space-around;
+
+        div {
+            margin: 10px;
+            height: 100%;
+        }
+    }
+
+}

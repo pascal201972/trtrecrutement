@@ -1,4 +1,36 @@
 $colorbleuciel:#33cccc;
-$colorgris:#555;
-$colorgisclaire:#999;
+$colorGris:#555;
+$colorGrisClaire:#999;
 
+/* Color Theme Swatches in Hex */
+$ColorVertFonce: #012E40;
+
+$ColorVertEmpire: #025159;
+$ColorVertCanard: #038C8C;
+$ColorVertPoireau: #03A696;
+$ColorOrange:#F28705;
+
+/* Color Theme Swatches in RGBA */
+
+@function ColorVertFonceRgba($coef) {
+    @return rgba(1, 46, 63, $coef);
+}
+
+@function ColorVertEmpireRgba($coef) {
+    @return rgba(1, 80, 89, $coef);
+}
+
+@function ColorVertCanardRgba($coef) {
+    @return rgba(2, 140, 140, $coef);
+}
+
+@function ColorVertPoireau($coef) {
+    @return rgba(3, 165, 149, $coef);
+}
+
+@function ColorOrangeRgba($coef) {
+    @return rgba(242, 135, 4, $coef);
+}
+
+$bgMenu:$ColorVertEmpire;
+$colorMenu:$colorGrisClaire

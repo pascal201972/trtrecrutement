@@ -1,9 +1,40 @@
-.bgbleuciel{
-    background-color:$colorbleuciel ;
+html,
+body {
+    height: 100%;
 }
-a{
-    color:$colorgris;
+
+body {
+    background-color: #eee;
+
 }
-.navbar-dark .navbar-brand, .navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover,.navbar-dark .navbar-nav .nav-link {
-    color:$colorgris;
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Lalezar', cursive;
+    color: $ColorVertFonce;
+}
+
+p,
+h2 {
+    color: $ColorVertEmpire;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+.bgMenu {
+    background-color: $bgMenu;
+}
+
+a {
+    color: $colorGrisClaire;
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-brand:focus,
+.navbar-dark .navbar-brand:hover,
+.navbar-dark .navbar-nav .nav-link {
+    color: $colorGrisClaire;
 }

@@ -1,6 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 @import "colors.scss";
+@import "font.scss";
+@import "logo.scss";
 @import "generalites.scss";
-body {
-    background-color: #eee;
-}
+@import "accueil.scss";
+
+
+@import "responsive.scss";
