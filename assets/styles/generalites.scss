@@ -38,3 +38,22 @@ a {
 .navbar-dark .navbar-nav .nav-link {
     color: $colorGrisClaire;
 }
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus,
+.btn-primary,
+.btn-primary:active {
+    background-color: $ColorOrange;
+    border: 1px solid $ColorOrange;
+
+    &:hover {
+        background-color: ColorOrangeRgba(0.7);
+        border: 1px solid $ColorOrange;
+    }
+}
+
+.align-right {
+    display: flex;
+    justify-content: right;
+    margin-right: 10px;
+}
