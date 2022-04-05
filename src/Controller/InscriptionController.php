@@ -11,7 +11,7 @@ class InscriptionController extends AbstractController
     #[Route('/inscription', name: 'app_inscription')]
     public function index(): Response
     {
-        return $this->render('inscription/index.html.twig', [
+        return $this->render('inscription/inscription.html.twig', [
             'page' => 'inscription',
         ]);
     }
