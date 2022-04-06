@@ -11,6 +11,6 @@ class CandidatController extends AbstractController
     #[Route('/candidat', name: 'app_candidat')]
     public function index(): Response
     {
-        return $this->render('candidat/candidat.html.twig', []);
+        return $this->render('candidat/candidat.html.twig', ['page' => 'admin']);
     }
 }

@@ -52,8 +52,16 @@ a {
     }
 }
 
-.bg-secondary {
-    background-color: $ColorVertFonce;
+.bg-secondary,
+.dropdown-menu {
+
+    a {
+        color: $ColorOrange;
+
+        &:hover {
+            background-color: $ColorVertEmpire;
+        }
+    }
 }
 
 .align-right {

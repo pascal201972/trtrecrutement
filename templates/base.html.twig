@@ -17,6 +17,8 @@
     {{ encore_entry_script_tags('js/test') }}
     {% endblock %}
 </head>
+{% if page is defined %}
+{% else %} {% set page ="admin"%} {% endif %}
 
 <body class="{{page}}">
     <nav class="navbar navbar-expand-lg navbar-dark bgMenu">
@@ -44,22 +46,26 @@
 
                 </ul>
 
-
-
-
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if page == 'inscription' %} active {% endif %}"
-                            href="{{path('app_inscription')}}">Inscription</a>
-                    </li>
 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle  {% if page == 'register' %} active {% endif %}"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                            aria-expanded="false">Inscription</a>
+
+                        <div class="dropdown-menu bgMenu">
+                            <a class="dropdown-item" href="{{path('app_register',{'type':'recruteur'})}}">Recruteurs</a>
+
+                            <a class="dropdown-item" href="{{path('app_register',{'type':'candidat'})}}">Candidats</a>
+                        </div>
+                    </li>
                     {% if app.user %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">{{
                             app.user.email}}</a>
 
-                        <div class="dropdown-menu ">
+                        <div class="dropdown-menu bgMenu">
 
                             {% if is_granted('ROLE_USER') %}
                             <a class="dropdown-item" href="{{path('app_login')}}">mon espace</a>
@@ -73,7 +79,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link {% if page == 'login' %} active {% endif %}"
-                            href="{{path('app_login')}}">Connexion</a>
+                            href="{{path('app_login')}}">Connection</a>
                     </li>
                     {% endif %}
                 </ul>

@@ -11,6 +11,6 @@ class ConsultantController extends AbstractController
     #[Route('/consultant', name: 'app_consultant')]
     public function index(): Response
     {
-        return $this->render('consultant/consultant.html.twig', []);
+        return $this->render('consultant/consultant.html.twig', ['page' => 'admin']);
     }
 }

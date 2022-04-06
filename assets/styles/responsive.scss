@@ -9,6 +9,10 @@
 }
 
 @media (max-width: 992px) {
+    .inscription {
+        width: 100%;
+    }
+
     .jumbotron .slide {
         height: 700px;
     }
@@ -64,4 +68,6 @@
             width: 100%;
         }
     }
+
+
 }
