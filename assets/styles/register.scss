@@ -1,9 +1,5 @@
 .inscription {
-    width: 80%;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
+
 
     &.recruteur {
         background-image: url('../images/recruteur.jpg');
@@ -15,34 +11,8 @@
 
     background-repeat: no-repeat;
     background-size: 100%;
+    background-position-y: 25%;
 
-    >div {
-        width: 450px;
-        margin-top: 50px;
-        height: 230px;
 
-        form {
-            background-color: ColorVertPoireau(0.7);
-            height: 100%;
 
-            div {
-                margin: 0 20px;
-                margin-bottom: 20px;
-            }
-        }
-
-        div.alert.alert-danger {
-            width: 100%;
-            margin: 0;
-        }
-
-        h1 {
-            background-color: $ColorVertFonce;
-            color: $ColorVertPoireau;
-            padding: 5px 10px;
-            margin: 0;
-            font-size: 25px;
-
-        }
-    }
 }

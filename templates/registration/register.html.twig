@@ -3,10 +3,10 @@
 {% block title %}Inscription TRT{% endblock %}
 
 {% block wrapper %}
-<div class="inscription {{type}}">
+<div class=" form inscription {{type}}">
 
     <div>
-        <h1 class="form-header">Inscription {{type}}</h1>
+        <h1 class="form-header bgMenu">Inscription {{type}}</h1>
 
         {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email,{'attr': {'class': 'form-control'}}) }}

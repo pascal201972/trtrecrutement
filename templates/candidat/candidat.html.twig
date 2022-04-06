@@ -7,7 +7,12 @@
 
 <div class="example-wrapper">
     <h1>bienvenue candidat</h1>
-
-   
+    {% if app.user.valider == 0 %}
+    <p>Votre candidature est en attente de validation par un consultant.</p>
+    <p>Vous devez pour cela compléter votre profil</p>
+    <p>Lorsqu'elle sera valider vous aurez accès aux offres d'emploi</p>
+    {% else %}
+    <p>super</p>
+    {% endif %}
 </div>
 {% endblock %}

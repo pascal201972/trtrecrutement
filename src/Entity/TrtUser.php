@@ -29,6 +29,9 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $valider;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,5 +119,17 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getValider(): ?bool
+    {
+        return $this->valider;
+    }
+
+    public function setValider(?bool $valider): self
+    {
+        $this->valider = $valider;
+
+        return $this;
     }
 }

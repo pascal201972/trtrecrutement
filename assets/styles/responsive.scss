@@ -11,7 +11,13 @@
 @media (max-width: 992px) {
     .inscription {
         width: 100%;
+        background-position-y: 0;
     }
+
+    .connect {
+        background-position-y: 0;
+    }
+
 
     .jumbotron .slide {
         height: 700px;
