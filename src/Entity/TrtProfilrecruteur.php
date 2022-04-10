@@ -13,16 +13,16 @@ class TrtProfilrecruteur
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $nom;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $adresse;
 
-    #[ORM\Column(type: 'string', length: 8)]
+    #[ORM\Column(type: 'string', length: 8, nullable: true)]
     private $codePostal;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $ville;
 
     public function getId(): ?int

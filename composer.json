@@ -12,7 +12,8 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
         "phpdocumentor/reflection-docblock": "^5.3",
-        "sensio/framework-extra-bundle": "^6.1",
+        "sensio/framework-extra-bundle": "^6.2",
+        "spatie/pdf-to-image": "^1.2",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",
         "symfony/dotenv": "5.3.*",
@@ -43,7 +44,8 @@
         "symfony/yaml": "5.3.*",
         "symfonycasts/verify-email-bundle": "^1.10",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^1.19"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",

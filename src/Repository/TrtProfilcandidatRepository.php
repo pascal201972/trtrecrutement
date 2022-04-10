@@ -62,15 +62,15 @@ class TrtProfilcandidatRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?TrtProfilcandidat
+    
+    public function findOneByUser($value): ?TrtProfilcandidat
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+            ->andWhere('t.idUser = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

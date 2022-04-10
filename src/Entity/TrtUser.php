@@ -32,6 +32,9 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $valider;
 
+    #[ORM\OneToOne(mappedBy: 'idUser', targetEntity: TrtProfilcandidat::class, cascade: ['persist', 'remove'])]
+    private $trtProfilcandidat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +132,28 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setValider(?bool $valider): self
     {
         $this->valider = $valider;
+
+        return $this;
+    }
+
+    public function getTrtProfilcandidat(): ?TrtProfilcandidat
+    {
+        return $this->trtProfilcandidat;
+    }
+
+    public function setTrtProfilcandidat(?TrtProfilcandidat $trtProfilcandidat): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($trtProfilcandidat === null && $this->trtProfilcandidat !== null) {
+            $this->trtProfilcandidat->setIdUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($trtProfilcandidat !== null && $trtProfilcandidat->getIdUser() !== $this) {
+            $trtProfilcandidat->setIdUser($this);
+        }
+
+        $this->trtProfilcandidat = $trtProfilcandidat;
 
         return $this;
     }

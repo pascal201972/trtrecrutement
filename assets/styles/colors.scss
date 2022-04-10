@@ -8,6 +8,8 @@ $ColorVertFonce: #012E40;
 $ColorVertEmpire: #025159;
 $ColorVertCanard: #038C8C;
 $ColorVertPoireau: #03A696;
+$ColorVertMenthe:#5C8C46;
+$ColorVertPelouse:#84B026;
 $ColorOrange:#F28705;
 
 /* Color Theme Swatches in RGBA */
@@ -24,7 +26,7 @@ $ColorOrange:#F28705;
     @return rgba(2, 140, 140, $coef);
 }
 
-@function ColorVertPoireau($coef) {
+@function ColorVertPoireauRgba($coef) {
     @return rgba(3, 165, 149, $coef);
 }
 
@@ -32,5 +34,49 @@ $ColorOrange:#F28705;
     @return rgba(242, 135, 4, $coef);
 }
 
+@function ColorVertMentheRgba($coef) {
+    @return rgba(91, 140, 70, $coef);
+}
+
+@function ColorVertPelouseRgba($coef) {
+    @return rgba(132, 175, 37, $coef);
+}
+
+
 $bgMenu:$ColorVertEmpire;
-$colorMenu:$colorGrisClaire
+$colorMenu:$colorGrisClaire;
+
+.color-alert {
+    color: $ColorOrange;
+}
+
+.bg-alert {
+    background-color: ColorOrangeRgba(0.3);
+}
+
+$colorAdmin: candidat $ColorVertPoireau ColorVertPoireauRgba(0.3),
+entreprise $ColorVertMenthe ColorVertMentheRgba(0.3),
+consultant $ColorVertCanard ColorVertCanardRgba(0.3),
+admin $ColorVertPelouse ColorVertPelouseRgba(0.3);
+
+@each $nom,
+$color,
+$rgba in $colorAdmin {
+    .admin .#{$nom} h1 {
+        background-color: $color;
+    }
+
+    .admin .#{$nom} h2.slide {
+        border-left: 5px solid $color;
+        border-bottom: 1px solid $color;
+
+    }
+
+    .admin .#{$nom} .bg-succes {
+        background-color: $rgba;
+    }
+
+    .admin .#{$nom} svg {
+        color: $color;
+    }
+}

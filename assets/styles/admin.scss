@@ -1,0 +1,31 @@
+.validation p {
+    font-size: 30px;
+}
+
+h1 {
+    padding: 8px;
+}
+
+.boutons {
+    display: inline-block;
+    position: relative;
+    height: 30px;
+    width: 50px;
+    left: 65%;
+    bottom: 10px;
+
+    button {
+        position: absolute;
+        border: none;
+    }
+}
+
+.align {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.hide {
+    display: none;
+}
