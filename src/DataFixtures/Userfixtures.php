@@ -24,6 +24,13 @@ class Userfixtures extends Fixture
 
         $user1->setPassword($this->passwordEncoder->hashPassword($user1, 'AdminJasmin!2022'));
         $manager->persist($user1);
+        $user2 = new TrtUser();
+        $user2->setEmail('AdminitrateurTrt@laposte.net');
+        $user2->setRoles(['ROLE_ADMIN']);
+
+        $user2->setPassword($this->passwordEncoder->hashPassword($user2, 'AdminTrt!2022'));
+        $manager->persist($user1);
+
 
         $manager->flush();
     }

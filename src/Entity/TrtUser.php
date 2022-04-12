@@ -35,6 +35,9 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'idUser', targetEntity: TrtProfilcandidat::class, cascade: ['persist', 'remove'])]
     private $trtProfilcandidat;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $ResetToken;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +157,18 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->trtProfilcandidat = $trtProfilcandidat;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->ResetToken;
+    }
+
+    public function setResetToken(?string $ResetToken): self
+    {
+        $this->ResetToken = $ResetToken;
 
         return $this;
     }

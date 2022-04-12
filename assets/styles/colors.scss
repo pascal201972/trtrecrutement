@@ -54,6 +54,14 @@ $colorMenu:$colorGrisClaire;
     background-color: ColorOrangeRgba(0.3);
 }
 
+.color-link {
+    color: $ColorVertEmpire;
+
+    &:hover {
+        color: $colorGrisClaire;
+    }
+}
+
 $colorAdmin: candidat $ColorVertPoireau ColorVertPoireauRgba(0.3),
 entreprise $ColorVertMenthe ColorVertMentheRgba(0.3),
 consultant $ColorVertCanard ColorVertCanardRgba(0.3),

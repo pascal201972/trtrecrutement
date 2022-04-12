@@ -3,6 +3,9 @@
 {% block title %}Identifier-vous!{% endblock %}
 
 {% block wrapper %}
+{% for message in app.flashes('successpasswod') %}
+<div class="alert alert-success" role="alert">{{ message}}</div>
+{% endfor %}
 <div class="form connect">
     <div>
         <h1 class="font-weight-normal bgMenu"> Identifiez-vous</h1>
@@ -40,6 +43,9 @@
                 </label>
             </div>
             #}
+            <div>
+                <strong><a href="{{path('app_reset_email')}}" class="color-link">mot de passe oublié</a></strong>
+            </div>
 
             <button class="btn btn-lg btn-primary" type="submit">
                 connection!

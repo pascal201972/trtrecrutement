@@ -1,3 +1,4 @@
+{% form_theme formconsultant 'bootstrap_5_layout.html.twig' %}
 {% extends 'base.html.twig' %}
 
 {% block title %}admin:trt{% endblock %}
@@ -5,11 +6,26 @@
 {% block wrapper %}
 
 <div class="container-fluid admin">
-    <h1>Bienvenue dans votre espace candidat: Administrateur</h1>
+    <h1>Bienvenue dans votre espace: Administrateur</h1>
 
     <div class="container admin">
+        <div>
+            <h2 class="">Ajouter un consultant</h2>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    {{ form_start(formconsultant) }}
+                    {{ form_row(formconsultant.email,{'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(formconsultant.plainPassword, {
+                    label: 'mot de passe'},{'attr': {'class': 'form-control'}}) }}
 
-        <h1>Administrateur</h1>
+                    <div> <button type="submit" class="btn btn-primary">Ajouter</button></div>
+
+                    {{ form_end(formconsultant) }}
+                </div>
+            </div>
+
+            <h2 class="">liste des consultants</h2>
+        </div>
     </div>
 </div>
 {% endblock %}

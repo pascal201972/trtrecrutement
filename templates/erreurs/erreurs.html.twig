@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ErreursController!{% endblock %}
+
+{% block wrapper %}
+
+
+<div class="container">
+    {% for messageErreur in app.flashes('messageErreur') %}
+    <div class="alert alert-danger" role="alert">{{ messageErreur }}</div>
+    {% endfor %}
+    <div>
+        <br />
+        <strong>
+            <a href="{{path('app_reset_email')}}" class="color-link btn btn-primary">mot de passe oublié</a>
+        </strong>
+    </div>
+</div>
+{% endblock %}
