@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
                 )
             );
             if ($type == 'recruteur') {
-                $user->setRoles(['ROLE_ENTREPRISE']);
+                $user->setRoles(['ROLE_RECRUTEUR']);
                 $profil = new TrtProfilrecruteur();
             } else {
                 $user->setRoles(['ROLE_CANDIDAT']);

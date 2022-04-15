@@ -13,23 +13,10 @@ class TrtAnnonce
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $titre;
 
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\Column(type: 'text')]
-    private $mission;
-
-    #[ORM\Column(type: 'text')]
-    private $vous;
-
-    #[ORM\Column(type: 'string', length: 100)]
-    private $ville;
-
-    #[ORM\Column(type: 'string', length: 10)]
-    private $contrat;
 
     #[ORM\Column(type: 'string', length: 10)]
     private $horaire;
@@ -40,22 +27,27 @@ class TrtAnnonce
     #[ORM\Column(type: 'boolean')]
     private $valider;
 
+
+    #[ORM\ManyToOne(targetEntity: TrtProfessions::class, inversedBy: 'annonce')]
+    private $profession;
+
+    #[ORM\ManyToOne(targetEntity: TrtExperiences::class, inversedBy: 'annonce')]
+    private $experience;
+
+    #[ORM\ManyToOne(targetEntity: TrtContrat::class, inversedBy: 'annonce')]
+    private $contrat;
+
+    #[ORM\ManyToOne(targetEntity: TrtProfilrecruteur::class, inversedBy: 'annonce')]
+    private $Recruteur;
+
+    #[ORM\ManyToOne(targetEntity: TrtEtatAnnonce::class, inversedBy: 'annonce')]
+    private $etat;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
-
-    public function setTitre(string $titre): self
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -69,53 +61,7 @@ class TrtAnnonce
         return $this;
     }
 
-    public function getMission(): ?string
-    {
-        return $this->mission;
-    }
 
-    public function setMission(string $mission): self
-    {
-        $this->mission = $mission;
-
-        return $this;
-    }
-
-    public function getVous(): ?string
-    {
-        return $this->vous;
-    }
-
-    public function setVous(string $vous): self
-    {
-        $this->vous = $vous;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getContrat(): ?string
-    {
-        return $this->contrat;
-    }
-
-    public function setContrat(string $contrat): self
-    {
-        $this->contrat = $contrat;
-
-        return $this;
-    }
 
     public function getHoraire(): ?string
     {
@@ -149,6 +95,66 @@ class TrtAnnonce
     public function setValider(bool $valider): self
     {
         $this->valider = $valider;
+
+        return $this;
+    }
+
+    public function getProfession(): ?TrtProfessions
+    {
+        return $this->profession;
+    }
+
+    public function setProfession(?TrtProfessions $profession): self
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    public function getExperience(): ?TrtExperiences
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?TrtExperiences $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getContrat(): ?TrtContrat
+    {
+        return $this->contrat;
+    }
+
+    public function setContrat(?TrtContrat $contrat): self
+    {
+        $this->contrat = $contrat;
+
+        return $this;
+    }
+
+    public function getRecruteur(): ?TrtProfilrecruteur
+    {
+        return $this->Recruteur;
+    }
+
+    public function setRecruteur(?TrtProfilrecruteur $Recruteur): self
+    {
+        $this->Recruteur = $Recruteur;
+
+        return $this;
+    }
+
+    public function getEtat(): ?TrtEtatAnnonce
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?TrtEtatAnnonce $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

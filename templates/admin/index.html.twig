@@ -25,6 +25,24 @@
             </div>
 
             <h2 class="">liste des consultants</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <td><strong>Email</strong></td>
+                        <td><strong>Action</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consultant in liste %}
+                    <tr>
+                        <td>{{consultant.Email}}</td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>

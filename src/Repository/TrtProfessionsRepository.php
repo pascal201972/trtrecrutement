@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\TrtProfilrecruteur;
+use App\Entity\TrtProfessions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method TrtProfilrecruteur|null find($id, $lockMode = null, $lockVersion = null)
- * @method TrtProfilrecruteur|null findOneBy(array $criteria, array $orderBy = null)
- * @method TrtProfilrecruteur[]    findAll()
- * @method TrtProfilrecruteur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TrtProfessions|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TrtProfessions|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TrtProfessions[]    findAll()
+ * @method TrtProfessions[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TrtProfilrecruteurRepository extends ServiceEntityRepository
+class TrtProfessionsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TrtProfilrecruteur::class);
+        parent::__construct($registry, TrtProfessions::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(TrtProfilrecruteur $entity, bool $flush = true): void
+    public function add(TrtProfessions $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class TrtProfilrecruteurRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(TrtProfilrecruteur $entity, bool $flush = true): void
+    public function remove(TrtProfessions $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,25 +46,24 @@ class TrtProfilrecruteurRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return TrtProfilrecruteur[] Returns an array of TrtProfilrecruteur objects
+    //  * @return TrtProfessions[] Returns an array of TrtProfessions objects
     //  */
-
-    public function findProfilByUser($user)
+    /*
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('t')
-            ->from('App\Entity\TrtUser', 'u')
-            ->select('u', 't')
-            ->Where('t.user = u.id')
-            ->andWhere('t.user = :val')
-            ->setParameter('val', $user)
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $value)
             ->orderBy('t.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
-
+    */
 
     /*
-    public function findOneBySomeField($value): ?TrtProfilrecruteur
+    public function findOneBySomeField($value): ?TrtProfessions
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

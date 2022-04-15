@@ -8,7 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EntrepriseController extends AbstractController
 {
-    #[Route('/entreprise', name: 'app_entreprise')]
+    /**
+     * 
+     * @Route("/recruteur", name="app_recruteur")
+     * IsGranted("ROLE_RECRUTEUR")
+     * @return Response
+     */
+
     public function index(): Response
     {
         return $this->render('entreprise/entreprise.html.twig', ['page' => 'admin']);

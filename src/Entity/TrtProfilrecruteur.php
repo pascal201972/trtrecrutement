@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TrtProfilrecruteurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrtProfilrecruteurRepository::class)]
@@ -24,6 +26,20 @@ class TrtProfilrecruteur
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $ville;
+
+    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    private $Etablissement;
+
+    #[ORM\OneToOne(targetEntity: TrtUser::class, cascade: ['persist', 'remove'])]
+    private $user;
+
+    #[ORM\OneToMany(mappedBy: 'Recruteur', targetEntity: TrtAnnonce::class)]
+    private $annonce;
+
+    public function __construct()
+    {
+        $this->annonce = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +90,60 @@ class TrtProfilrecruteur
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getEtablissement(): ?string
+    {
+        return $this->Etablissement;
+    }
+
+    public function setEtablissement(string $Etablissement): self
+    {
+        $this->Etablissement = $Etablissement;
+
+        return $this;
+    }
+
+    public function getUser(): ?TrtUser
+    {
+        return $this->user;
+    }
+
+    public function setUser(?TrtUser $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TrtAnnonce>
+     */
+    public function getAnnonce(): Collection
+    {
+        return $this->annonce;
+    }
+
+    public function addAnnonce(TrtAnnonce $annonce): self
+    {
+        if (!$this->annonce->contains($annonce)) {
+            $this->annonce[] = $annonce;
+            $annonce->setRecruteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(TrtAnnonce $annonce): self
+    {
+        if ($this->annonce->removeElement($annonce)) {
+            // set the owning side to null (unless already changed)
+            if ($annonce->getRecruteur() === $this) {
+                $annonce->setRecruteur(null);
+            }
+        }
 
         return $this;
     }

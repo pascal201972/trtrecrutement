@@ -28,6 +28,12 @@ class TrtProfilcandidat
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $image;
 
+    #[ORM\ManyToOne(targetEntity: TrtProfessions::class, inversedBy: 'candidat')]
+    private $profession;
+
+    #[ORM\ManyToOne(targetEntity: TrtExperiences::class, inversedBy: 'candidat')]
+    private $experience;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +95,30 @@ class TrtProfilcandidat
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getProfession(): ?TrtProfessions
+    {
+        return $this->profession;
+    }
+
+    public function setProfession(?TrtProfessions $profession): self
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    public function getExperience(): ?TrtExperiences
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?TrtExperiences $experience): self
+    {
+        $this->experience = $experience;
 
         return $this;
     }

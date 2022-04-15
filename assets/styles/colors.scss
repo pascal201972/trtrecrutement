@@ -62,22 +62,35 @@ $colorMenu:$colorGrisClaire;
     }
 }
 
-$colorAdmin: candidat $ColorVertPoireau ColorVertPoireauRgba(0.3),
-entreprise $ColorVertMenthe ColorVertMentheRgba(0.3),
-consultant $ColorVertCanard ColorVertCanardRgba(0.3),
-admin $ColorVertPelouse ColorVertPelouseRgba(0.3);
+$colorAdmin: candidat $ColorVertPoireau ColorVertPoireauRgba(0.3) ColorVertPoireauRgba(0.7),
+recruteur $ColorVertMenthe ColorVertMentheRgba(0.3) ColorVertMentheRgba(0.7),
+consultant $ColorVertCanard ColorVertCanardRgba(0.3) ColorVertCanardRgba(0.7),
+admin $ColorVertPelouse ColorVertPelouseRgba(0.3) ColorVertPelouseRgba(0.7);
 
 @each $nom,
 $color,
-$rgba in $colorAdmin {
+$rgba,
+$rgbapaire in $colorAdmin {
     .admin .#{$nom} h1 {
         background-color: $color;
     }
 
-    .admin .#{$nom} h2.slide {
-        border-left: 5px solid $color;
-        border-bottom: 1px solid $color;
+    .admin .#{$nom} h2 {
+        &.slide {
+            border-left: 5px solid $color;
+            border-bottom: 1px solid $color;
+        }
 
+        &.bg {
+            background-color: $color;
+        }
+    }
+
+    .admin .#{$nom} {
+        &.liste {
+            border: 1px solid $color;
+            padding: 0;
+        }
     }
 
     .admin .#{$nom} .bg-succes {
@@ -86,5 +99,17 @@ $rgba in $colorAdmin {
 
     .admin .#{$nom} svg {
         color: $color;
+    }
+
+    .admin .#{$nom}.liste {
+        tbody {
+            tr.paire {
+                background-color: $rgbapaire;
+            }
+
+            tr.impaire {
+                background-color: $rgba;
+            }
+        }
     }
 }

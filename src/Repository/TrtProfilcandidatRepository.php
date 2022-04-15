@@ -48,29 +48,28 @@ class TrtProfilcandidatRepository extends ServiceEntityRepository
     // /**
     //  * @return TrtProfilcandidat[] Returns an array of TrtProfilcandidat objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findProfilByUser($user)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+            ->from('App\Entity\TrtUser', 'u')
+            ->select('u , t')
+            ->andWhere('t.idUser = u.id')
+            ->andWhere('t.idUser = :val')
+            ->setParameter('val', $user)
             ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    
+
+
     public function findOneByUser($value): ?TrtProfilcandidat
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.idUser = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    
 }

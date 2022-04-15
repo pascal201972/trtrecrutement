@@ -2,6 +2,10 @@
     font-size: 30px;
 }
 
+.admin .row {
+    margin: 0 5px;
+}
+
 h1 {
     padding: 8px;
 }
@@ -28,4 +32,30 @@ h1 {
 
 .hide {
     display: none;
+}
+
+h2.bg {
+    color: #eee;
+    text-indent: 10px;
+}
+
+.candidat,
+.recruteur {
+    table {
+        width: 100%;
+
+        td {
+            text-align: center;
+        }
+    }
+
+    tr {
+        height: 35px;
+
+        td {
+            padding: 5px;
+
+        }
+    }
+
 }
