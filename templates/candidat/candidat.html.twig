@@ -1,5 +1,3 @@
-{% form_theme formProfil 'bootstrap_5_layout.html.twig' %}
-{% form_theme formcv 'bootstrap_5_layout.html.twig' %}
 {% extends 'base.html.twig' %}
 
 {% block title %} Candidat:trt{% endblock %}
@@ -11,78 +9,24 @@
 {% endblock %}
 {% block wrapper %}
 <div class="container-fluid candidat">
-    <h1>Bienvenue dans votre espace candidat: {{profil.prenom}} {{profil.nom}}</h1>
-
-    <div class="container candidat">
-
-        <div class="validation">
-            {% if app.user.valider == 0 %}
-            <p class="color-alert bg-alert p-2">Alert! Votre candidature est en attente de validation par un
-                <strong>consultant.</strong>
-            </p>
-            {% else %}
-            <p class="bg-succes align">Votre Profil a été validé par un consultant, {% include
-                'svg/svg_valider_check.html.twig'%} </p>
-            <p class="bg-succes align">vous avez accès aux offres d'emplois.</p>
-            {% endif %}
-
-            {% if profil.prenom == "" or profil.nom == "" or profil.cv =="" %}
-            <p class="color-alert bg-alert p-2">Alert! Vous devez pour cela <strong>compléter votre
-                    profil.</strong></p>
-
-            <p>Lorsqu'il sera validé vous aurez accès aux offres d'emplois.</p>
-            {% else %}
-            <p class="bg-succes align">Votre profil est complet. {% include
-                'svg/svg_valider_check.html.twig'%}</p>
-            {% endif %}
-
-            <h2 class="slide p-2"><strong>Votre profil</strong></h2>
-            <div class="row">
-                <div class="col-12 col-lg-8">
-                    {% if profil.prenom == "" or profil.nom == "" %}
-                    <p class="color-alert bg-alert p-2">Alert! Ajouter vos<strong>nom et prenom </strong></p>
+    <h1>Bienvenue dans votre espace candidat: </h1>
+    <ul class="nav nav-tabs">
+        <li class="nav-item candidat ">
+            <a class="nav-link {% if onglet == 'profil' %} active {% endif %}" href="{{path('app_candidat')}}">profil
+                candidat</a>
+        </li>
+        <li class="nav-item annonce ">
+            <a class="nav-link {% if onglet == 'annonce' %} active {% endif %}"
+                href="{{path('app_candidat_annonce')}}">Listes
+                de mes
+                candidatures</a>
+        </li>
 
 
-                    {% else %}
-                    <p class="bg-succes align">Nom et prénom: Ajouter. {% include
-                        'svg/svg_valider_check.html.twig'%}</p>
-                    {% endif %}
-                    <div class="col-12 col-lg-8">
-                        {{ form_start(formProfil) }}
-                        {{ form_row(formProfil.nom,{'attr': {'class': 'form-control','placeholder':'nom '}}) }}
-                        {{ form_row(formProfil.prenom,{'attr': {'class': 'form-control','placeholder':'prenom '}}) }}
-
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                        {{ form_end(formProfil) }}
-                    </div>
-
-                </div>
-
-                <diV class="col-12 col-lg-4">
-                    {% if profil.cv =="" %}
-                    <p class="color-alert bg-alert p-2">Alert! Ajouter votre <strong>cv</strong></p>
-
-
-                    {% else %}
-                    <p class="bg-succes align">Le cv à été ajouter. {% include
-                        'svg/svg_valider_check.html.twig'%}</p>
-                    {% endif %}
-                    <p class="ft-18">{{profil.cv}}</p>
-                    <h3>Ajouter ou modifier votre cv</h3>
-                    {{ form_start(formcv) }}
-
-                    {{ form_row(formcv.cvpdf,{'attr': {'class': 'form-control','placeholder':'cv '}}) }}
-                    {% if profil.cv =="" %}
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
-                    {% else %}
-                    <button type="submit" class="btn btn-primary">Modifier</button>
-                    {% endif %}
-                    {{ form_end(formcv) }}
-                </diV>
-            </div>
-
-
-        </div>
+    </ul>
+    <div class="content {% if onglet == 'profil' %} candidat {% else %}  {{onglet}} {% endif %}">
+        {% if onglet == 'profil' %} {% include 'candidat/profil_candidat.html.twig'%}{% endif %}
+        {% if onglet == 'annonce' %} {% include 'candidat/liste_candidature.html.twig'%}{% endif %}
     </div>
 
     {% endblock %}

@@ -10,6 +10,8 @@ use App\Entity\TrtExperiences;
 use App\Entity\TrtProfessions;
 use App\Entity\TrtProfilcandidat;
 use App\Entity\TrtProfilrecruteur;
+use App\Repository\TrtExperiencesRepository;
+use App\Repository\TrtProfessionsRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -17,9 +19,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class Userfixtures extends Fixture
 {
     private $passwordEncoder;
-    public function __construct(UserPasswordHasherInterface $passwordEncoder_)
+    private $reposProfessions;
+    private $reposExperience;
+    public function __construct(UserPasswordHasherInterface $passwordEncoder_, TrtProfessionsRepository $reposProfessions_, TrtExperiencesRepository $reposExperience_)
     {
         $this->passwordEncoder = $passwordEncoder_;
+        $this->reposProfessions = $reposProfessions_;
+        $this->reposExperience = $reposExperience_;
     }
 
     public function load(ObjectManager $manager): void
@@ -28,13 +34,16 @@ class Userfixtures extends Fixture
         $user1 = new TrtUser();
         $user1->setEmail('jasminpascal2016@gmail.com');
         $user1->setRoles(['ROLE_ADMIN']);
-
+        $user1->setProfil(0);
+        $user1->setValider(1);
         $user1->setPassword($this->passwordEncoder->hashPassword($user1, 'AdminJasmin!2022'));
         $manager->persist($user1);
+
         $user2 = new TrtUser();
         $user2->setEmail('AdminitrateurTrt@laposte.net');
         $user2->setRoles(['ROLE_ADMIN']);
-
+        $user2->setProfil(0);
+        $user2->setValider(0);
         $user2->setPassword($this->passwordEncoder->hashPassword($user2, 'AdminTrt!2022'));
         $manager->persist($user2);
         $manager->flush();
@@ -42,11 +51,16 @@ class Userfixtures extends Fixture
         $userRecrut = new TrtUser();
         $userRecrut->setEmail("entreprise2022@laposte.net")
             ->setRoles(['ROLE_RECRUTEUR'])
+            ->setProfil(0)
+            ->setValider(0)
             ->setPassword($this->passwordEncoder->hashPassword($userRecrut, 'recruteurAdmin!2022'));
         $profilRec = new TrtProfilrecruteur();
-        $profilRec->setUser($userRecrut);
-        $manager->persist($userRecrut);
+
+
         $manager->persist($profilRec);
+        $userRecrut->setTrtProfilrecruteur($profilRec);
+        $manager->persist($userRecrut);
+
         $manager->flush();
         // Professions
         $listeprofessions = array(
@@ -74,8 +88,8 @@ class Userfixtures extends Fixture
         foreach ($listeprofessions as $profess) {
             $profession = new TrtProfessions();
             $profession->setTitre($profess);
-            $arrayProf[] = $profession;
             $manager->persist($profession);
+            $arrayProf[] = $profession;
         }
         $manager->flush();
         // liste d 'experiences
@@ -83,8 +97,8 @@ class Userfixtures extends Fixture
         foreach ($listeExperiences as $exp) {
             $experience = new TrtExperiences();
             $experience->setTitre($exp);
-            $arrayExp[] = $experience;
             $manager->persist($experience);
+            $arrayExp[] = $experience;
         }
         $manager->flush();
         // liste Nom
@@ -104,19 +118,25 @@ class Userfixtures extends Fixture
             $nbr = random_int(101, 299);
             $usercand->setRoles(['ROLE_CANDIDAT']);
             $usercand->setValider(0);
-            $usercand->setEmail('candidatfaux' . $i . '@laposte.net');
-            $usercand->setPassword($this->passwordEncoder->hashPassword($usercand, 'Candidatfaux' . $i . $nbr . '!2022'));
-            $manager->persist($usercand);
+            $usercand->setProfil(1);
+            $usercand->setEmail('candidatfaux' . $i . $nbr . '@laposte.net');
+            $usercand->setPassword($this->passwordEncoder->hashPassword($usercand, 'Candidatfaux' . $i . $nbr . 'Admin!2022'));
+
             $profil = new TrtProfilcandidat();
-            $profil->setIdUser($usercand);
+
             $profil->setNom($listeNoms[random_int(0, count($listeNoms) - 1)]);
             $prenom = strtolower($listePrenoms[random_int(0, count($listePrenoms) - 1)]);
             $profil->setPrenom($prenom);
             $indexpro = random_int(0, count($arrayProf) - 1);
             $profil->setCv($listecv[$indexpro]);
-            $profil->setProfession($arrayProf[$indexpro]);
-            $profil->setExperience($arrayExp[random_int(0, count($arrayExp) - 1)]);
+            $profession = $this->reposProfessions->findOneBy(['titre' => $listeprofessions[$indexpro]]);
+            $profil->setProfession($profession);
+            $index = random_int(0, count($arrayExp) - 1);
+            $experience = $this->reposExperience->findOneBy(['titre' => $listeExperiences[$index]]);
+            $profil->setExperience($experience);
             $manager->persist($profil);
+            $usercand->setTrtProfilcandidat($profil);
+            $manager->persist($usercand);
         }
         $manager->flush();
 
@@ -133,13 +153,14 @@ class Userfixtures extends Fixture
             $nbr = random_int(101, 299);
             $userRec->setValider(0);
             $userRec->setRoles(['ROLE_RECRUTEUR']);
-            $userRec->setEmail('recruteurfaux' . $i . '@laposte.net');
-            $userRec->setPassword($this->passwordEncoder->hashPassword($userRec, 'recruteurfaux' . $i . $nbr . '!2022'));
+            $userRec->setProfil(1);
+            $userRec->setEmail('recruteurfaux' . $i . $nbr . '@laposte.net');
+            $userRec->setPassword($this->passwordEncoder->hashPassword($userRec, 'recruteurfaux' . $i . $nbr . 'Admin!2022'));
             $manager->persist($userRec);
             $profilrec = new TrtProfilrecruteur();
             $etab = random_int(0, 1);
             $profilrec->setEtablissement($Etablisement[$etab]);
-            $profilrec->setUser($userRec);
+
             if ($etab == 0)
                 $profilrec->setNom($NomRestaurant[random_int(0, count($NomRestaurant) - 1)]);
             else
@@ -152,6 +173,8 @@ class Userfixtures extends Fixture
             $profilrec->setCodePostal($code[$indexville] * 100 + random_int(10, 100));
             $arrayRecruteur[] = $profilrec;
             $manager->persist($profilrec);
+            $userRec->setTrtProfilrecruteur($profilrec);
+            $manager->persist($userRec);
         }
         $manager->flush();
         // annonce
@@ -180,16 +203,18 @@ class Userfixtures extends Fixture
             $annonce->setEtat($arrayEtat[2]);
             $indexrecruteur = random_int(0, count($arrayRecruteur) - 1);
             $recruteur = $arrayRecruteur[$indexrecruteur];
-            $annonce->getRecruteur($recruteur);
+            $annonce->setRecruteur($recruteur);
 
             if ($recruteur->getEtablissement() == 'Restaurant')
                 $indexpro = random_int(0, 9);
             else $indexpro = random_int(10, 15);
+
+
             $annonce->setProfession($arrayProf[$indexpro]);
             $annonce->setExperience($arrayExp[random_int(0, count($arrayExp) - 1)]);
             $annonce->setDescription("Homines enim eruditos et sobrios ut infaustos et inutiles vitant, eo quoque accedente quod et nomenclatores adsueti haec et talia venditare, mercede accepta lucris quosdam et prandiis inserunt subditicios ignobiles et obscuros.");
             $salaire = array(22000, 23000, 25000, 28000, 24000, 30000);
-
+            $annonce->setComplet(true);
             $annonce->setSalaireAnnuel($salaire[random_int(0, 5)]);
             $annonce->setHoraire('8h / jour');
             $annonce->setValider(0);

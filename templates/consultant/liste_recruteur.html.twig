@@ -1,0 +1,66 @@
+<div class="liste recruteur ">
+
+    <h3>Recruteurs non validés</h3>
+    <div class="tbody" id="nomvalid">
+        {% for recruteur in listes %}
+        {% if recruteur.valider == 0 %}
+        <article class="novalid  {% if  loop.index % 2 == 0  %} paire {% else %} impaire {% endif %} row">
+            <div class="row">
+                <div class="col-xl-4"><span><strong>Email :</strong></span>{{recruteur.Email}}</div>
+                <div class="col-xl-2"><span><strong>Nom :</strong></span>{{recruteur.trtProfilrecruteur.nom}}</div>
+                <div class="col-xl-4"><span><strong>Etablissement
+                            :</strong></span>{{recruteur.trtProfilrecruteur.etablissement}}</div>
+                <div class="col-xl-2"><span><strong>Ville:</strong></span>{{recruteur.trtProfilrecruteur.ville}}</div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 action"><span><strong>voir:</strong></span><a class="voir btn"
+                        href="{{path('app_consultant_voirrecruteur',{'id':recruteur.id})}}">{% include
+                        'svg/svg_voir.html.twig' %}
+                    </a>
+                </div>
+
+
+                <div class="col-xl-6 action">
+                    {% if recruteur.profil == true %}
+                    <a href="{{path('app_consultant_validation',{'id':recruteur.id})}}"
+                        class="btn btn-primary">Valider</a>
+                    {% else %}
+                    <strong>profil incomplet</strong>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <h3>Recruteurs validés</h3>
+    <div class="tbody" id="valid">
+
+        {% for recruteur in listes %}
+        {% if recruteur.valider == 1 %}
+        <article class="valid  {% if  loop.index % 2 == 0  %} paire {% else %} impaire {% endif %} row">
+            <div class="row">
+                <div class="col-xl-4"><span><strong>Email :</strong></span>{{recruteur.Email}}</div>
+                <div class="col-xl-2"><span><strong>Nom :</strong></span>{{recruteur.trtProfilrecruteur.nom}}</div>
+                <div class="col-xl-4"><span><strong>Etablissement
+                            :</strong></span>{{recruteur.trtProfilrecruteur.etablissement}}</div>
+                <div class="col-xl-2"><span><strong>Ville:</strong></span>{{recruteur.trtProfilrecruteur.ville}}</div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 action">
+                    <a class="voir btn" href="{{path('app_consultant_voirrecruteur',{'id':recruteur.id})}}">
+                        {% include 'svg/svg_voir.html.twig' %}
+                    </a>
+                </div>
+                <div class="col-xl-6 action">{% include 'svg/svg_valider_check.html.twig' %}
+                    <a href="{{path('app_consultant_desactivation',{'id':recruteur.id})}}"
+                        class="btn btn-secondary">Désactiver</a>
+                </div>
+            </div>
+
+    </div>
+    </article>
+    {% endif %}
+    {% endfor %}
+</div>
+</div>

@@ -30,11 +30,12 @@ class TrtProfilrecruteur
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private $Etablissement;
 
-    #[ORM\OneToOne(targetEntity: TrtUser::class, cascade: ['persist', 'remove'])]
-    private $user;
 
     #[ORM\OneToMany(mappedBy: 'Recruteur', targetEntity: TrtAnnonce::class)]
     private $annonce;
+
+    #[ORM\OneToOne(inversedBy: 'trtProfilrecruteur', targetEntity: TrtUser::class, cascade: ['persist', 'remove'])]
+    private $idUser;
 
     public function __construct()
     {
@@ -106,17 +107,7 @@ class TrtProfilrecruteur
         return $this;
     }
 
-    public function getUser(): ?TrtUser
-    {
-        return $this->user;
-    }
 
-    public function setUser(?TrtUser $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, TrtAnnonce>
@@ -144,6 +135,18 @@ class TrtProfilrecruteur
                 $annonce->setRecruteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIdUser(): ?TrtUser
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?TrtUser $idUser): self
+    {
+        $this->idUser = $idUser;
 
         return $this;
     }

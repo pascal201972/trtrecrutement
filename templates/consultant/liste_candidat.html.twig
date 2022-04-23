@@ -1,0 +1,76 @@
+<div class="liste candidat">
+    <h3>Candidats Non validés</h3>
+    <div class="tbody" id="novalid">
+        {% for candidat in listes %}
+        {% if candidat.valider == 0 %}
+
+        <article class="novalid   {% if  loop.index % 2 == 0  %} impaire {% else %} paire {% endif %}">
+
+            <div class="row">
+                <div class="col-xl-5 "><span><strong>Email : </strong></span>{{candidat.Email}}</div>
+                <div class="col-xl-2 "><span><strong>Nom :
+                        </strong></span><strong>{{candidat.trtProfilcandidat.nom}}</strong>
+                </div>
+                <div class="col-xl-2 ">
+                    <span><strong>Prenom:</strong></span>{{candidat.trtProfilcandidat.prenom}}
+                </div>
+                <div class="col-xl-3 "><span><strong>CV :
+                        </strong></span>{{candidat.trtProfilcandidat.cv~'.pdf'}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 action"><span><strong>voir : </strong></span><a class="voir btn "
+                        href="{{path('app_consultant_voircandidat',{'id':candidat.id})}}">
+                        {% include 'svg/svg_voir.html.twig' %}
+                    </a>
+                </div>
+                {% if candidat.profil == true %}
+                <div class="col-xl-6 action"><a href="{{path('app_consultant_validation',{'id':candidat.id})}}"
+                        class="btn btn-primary ft-20">Valider</a></div>
+                {% else %}
+                <div class="col-xl-6 ft-18"><strong>profil incomplet</strong></div>
+                {% endif %}
+            </div>
+        </article>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <h3>Candidats validés</h3>
+    <div class="tbody" id="valid">
+        {% set index = 0 %}
+        {% for candidat in listes %}
+
+        {% if candidat.valider == 1 %}
+        {% set index = index + 1 %}
+        <article class="valid  {% if  index % 2 == 0  %} impaire {% else %} paire {% endif %}">
+
+            <div class="row">
+                <div class="col-xl-5"><span><strong>Email:</strong></span>{{candidat.Email}}</div>
+                <div class="col-xl-2">
+                    <span><strong>Nom:</strong></span><strong>{{candidat.trtProfilcandidat.nom}}</strong>
+                </div>
+                <div class="col-xl-2"><span><strong>Prenom:</strong></span>{{candidat.trtProfilcandidat.prenom}}
+                </div>
+                <div class="col-xl-3"><span><strong>CV:</strong></span>{{candidat.trtProfilcandidat.cv~'.pdf'}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 action"><span><strong>voir:</strong></span><a class="voir btn "
+                        href="{{path('app_consultant_voircandidat',{'id':candidat.id})}}">
+                        {% include 'svg/svg_voir.html.twig' %}
+                    </a>
+                </div>
+                <div class="col-xl-6 action">
+                    <a href="{{path('app_consultant_desactivation',{'id':candidat.id})}}"
+                        class="btn btn-secondary">Désactiver</a>
+                    {% include 'svg/svg_valider_check.html.twig' %}
+                </div>
+        </article>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+</div>

@@ -61,6 +61,18 @@ class TrtAnnonceRepository extends ServiceEntityRepository
         ;
     }
     */
+ /*
+    public function findByValider($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?TrtAnnonce

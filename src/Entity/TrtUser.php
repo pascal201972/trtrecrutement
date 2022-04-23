@@ -38,6 +38,12 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $ResetToken;
 
+    #[ORM\OneToOne(mappedBy: 'idUser', targetEntity: TrtProfilrecruteur::class, cascade: ['persist', 'remove'])]
+    private $trtProfilrecruteur;
+
+    #[ORM\Column(type: 'boolean')]
+    private $profil;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -169,6 +175,40 @@ class TrtUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResetToken(?string $ResetToken): self
     {
         $this->ResetToken = $ResetToken;
+
+        return $this;
+    }
+
+    public function getTrtProfilrecruteur(): ?TrtProfilrecruteur
+    {
+        return $this->trtProfilrecruteur;
+    }
+
+    public function setTrtProfilrecruteur(?TrtProfilrecruteur $trtProfilrecruteur): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($trtProfilrecruteur === null && $this->trtProfilrecruteur !== null) {
+            $this->trtProfilrecruteur->setIdUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($trtProfilrecruteur !== null && $trtProfilrecruteur->getIdUser() !== $this) {
+            $trtProfilrecruteur->setIdUser($this);
+        }
+
+        $this->trtProfilrecruteur = $trtProfilrecruteur;
+
+        return $this;
+    }
+
+    public function getProfil(): ?bool
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(bool $profil): self
+    {
+        $this->profil = $profil;
 
         return $this;
     }

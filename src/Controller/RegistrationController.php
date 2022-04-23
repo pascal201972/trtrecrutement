@@ -50,6 +50,7 @@ class RegistrationController extends AbstractController
             }
 
             $user->setValider(0);
+            $user->setProfil(0);
             $entityManager->persist($user);
 
             $profil->setIdUser($user);

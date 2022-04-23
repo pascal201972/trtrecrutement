@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TrtAnnonceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrtAnnonceRepository::class)]
@@ -42,6 +44,20 @@ class TrtAnnonce
 
     #[ORM\ManyToOne(targetEntity: TrtEtatAnnonce::class, inversedBy: 'annonce')]
     private $etat;
+
+    #[ORM\Column(type: 'boolean')]
+    private $complet;
+
+    #[ORM\OneToMany(mappedBy: 'annonce', targetEntity: TrtCandidature::class)]
+    private $trtCandidatures;
+
+    public function __construct()
+    {
+        $this->trtCandidatures = new ArrayCollection();
+    }
+
+
+
 
     public function getId(): ?int
     {
@@ -155,6 +171,48 @@ class TrtAnnonce
     public function setEtat(?TrtEtatAnnonce $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getComplet(): ?bool
+    {
+        return $this->complet;
+    }
+
+    public function setComplet(bool $complet): self
+    {
+        $this->complet = $complet;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TrtCandidature>
+     */
+    public function getTrtCandidatures(): Collection
+    {
+        return $this->trtCandidatures;
+    }
+
+    public function addTrtCandidature(TrtCandidature $trtCandidature): self
+    {
+        if (!$this->trtCandidatures->contains($trtCandidature)) {
+            $this->trtCandidatures[] = $trtCandidature;
+            $trtCandidature->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrtCandidature(TrtCandidature $trtCandidature): self
+    {
+        if ($this->trtCandidatures->removeElement($trtCandidature)) {
+            // set the owning side to null (unless already changed)
+            if ($trtCandidature->getAnnonce() === $this) {
+                $trtCandidature->setAnnonce(null);
+            }
+        }
 
         return $this;
     }

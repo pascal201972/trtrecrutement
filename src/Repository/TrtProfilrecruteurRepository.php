@@ -54,8 +54,8 @@ class TrtProfilrecruteurRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->from('App\Entity\TrtUser', 'u')
             ->select('u', 't')
-            ->Where('t.user = u.id')
-            ->andWhere('t.user = :val')
+            ->Where('t.idUser = u.id')
+            ->andWhere('t.idUser = :val')
             ->setParameter('val', $user)
             ->orderBy('t.id', 'ASC')
             ->getQuery()
@@ -63,15 +63,12 @@ class TrtProfilrecruteurRepository extends ServiceEntityRepository
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?TrtProfilrecruteur
+    public function findOneByUser($user): ?TrtProfilRecruteur
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('t.idUser = :val')
+            ->setParameter('val', $user)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 }

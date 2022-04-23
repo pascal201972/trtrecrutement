@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TrtProfilcandidatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrtProfilcandidatRepository::class)]
@@ -33,6 +35,20 @@ class TrtProfilcandidat
 
     #[ORM\ManyToOne(targetEntity: TrtExperiences::class, inversedBy: 'candidat')]
     private $experience;
+
+    #[ORM\ManyToOne(targetEntity: TrtAnnonce::class, inversedBy: 'candidats')]
+    private $trtAnnonce;
+
+    #[ORM\OneToMany(mappedBy: 'profil', targetEntity: TrtCandidature::class)]
+    private $trtCandidatures;
+
+    public function __construct()
+    {
+        $this->trtCandidatures = new ArrayCollection();
+    }
+
+
+
 
     public function getId(): ?int
     {
@@ -119,6 +135,48 @@ class TrtProfilcandidat
     public function setExperience(?TrtExperiences $experience): self
     {
         $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getTrtAnnonce(): ?TrtAnnonce
+    {
+        return $this->trtAnnonce;
+    }
+
+    public function setTrtAnnonce(?TrtAnnonce $trtAnnonce): self
+    {
+        $this->trtAnnonce = $trtAnnonce;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TrtCandidature>
+     */
+    public function getTrtCandidatures(): Collection
+    {
+        return $this->trtCandidatures;
+    }
+
+    public function addTrtCandidature(TrtCandidature $trtCandidature): self
+    {
+        if (!$this->trtCandidatures->contains($trtCandidature)) {
+            $this->trtCandidatures[] = $trtCandidature;
+            $trtCandidature->setProfil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrtCandidature(TrtCandidature $trtCandidature): self
+    {
+        if ($this->trtCandidatures->removeElement($trtCandidature)) {
+            // set the owning side to null (unless already changed)
+            if ($trtCandidature->getProfil() === $this) {
+                $trtCandidature->setProfil(null);
+            }
+        }
 
         return $this;
     }

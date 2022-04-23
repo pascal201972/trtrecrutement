@@ -18,7 +18,7 @@
     {% endblock %}
 </head>
 {% if page is defined %}
-{% else %} {% set page ="admin"%} {% endif %}
+{% else %} {% set page ="administration" %} {% endif %}
 
 <body class="{{page}}">
     <nav class="navbar navbar-expand-lg navbar-dark bgMenu">
@@ -68,7 +68,7 @@
                         <div class="dropdown-menu bgMenu">
 
                             {% if is_granted('ROLE_USER') %}
-                            <a class="dropdown-item" href="{{path('app_login')}}">mon espace</a>
+                            <a class="dropdown-item" href="{{path('app_connect')}}">mon espace</a>
 
                             {% endif %}
 

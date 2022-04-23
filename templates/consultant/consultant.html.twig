@@ -1,105 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Consultant:trt{% endblock %}
+{% block javascripts %}
+{{ encore_entry_script_tags('js/admin') }}
+{% endblock %}
 
 {% block wrapper %}
 
-
-<div class="container-fluid">
-    <h1>bienvenue consultant</h1>
-    <div class="row">
-        <div class="col-12 col-lg-6 liste candidat">
-            <h2 class="bg">Liste des candidats</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <td><strong>Email</strong></td>
-                        <td><strong>Nom</strong></td>
-                        <td><strong>Prenom</strong></td>
-                        <td><strong>CV</strong></td>
-                        <td>voir</td>
-                        <td><strong>validation</strong></td>
-
-                    </tr>
-                </thead>
-                <tbody id="idcandidatnovalid">
-                    {% for candidat in candidats %}
-                    {% if candidat[1].valider == 0 %}
-
-                    <tr class="novalid   {% if  loop.index % 2 == 0  %} paire {% else %} impaire {% endif %}">
-                        <td>{{candidat[1].Email}}</td>
-                        <td>{{candidat[0].nom}}</td>
-                        <td>{{candidat[0].prenom}}</td>
-                        <td>{{candidat[0].cv~'.pdf'}}</td>
-                        <td>voir</td>
-                        <td><button class="btn btn-primary">Valider</button></td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </tbody>
-                <tbody id="idcandidatvalid">
-                    <tr>
-                        <td>Candidats validés</td>
-                    </tr>
-                    {% for candidat in candidats %}
-                    {% if candidat[1].valider == 1 %}
-                    <tr class="valid">
-                        <td>{{candidat[1].Email}}</td>
-                        <td>{{candidat[0].nom}}</td>
-                        <td>{{candidat[0].prenom}}</td>
-                        <td>{{candidat[0].cv~'.pdf'}}</td>
-                        <td>voir</td>
-                        <td></td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </tbody>
-
-            </table>
-
-        </div>
-        <div class="col-12 col-lg-6 liste recruteur">
-            <h2 class="bg">Liste des Recruteurs</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <td><strong>Email</strong></td>
-                        <td><strong>Nom</strong></td>
-                        <td><strong>Etablissement</strong></td>
-                        <td><strong>Ville</strong></td>
-                        <td><strong>validation</strong></td>
+<div class="container-fluid consultant">
+    <h1 class="bg-color">Bienvenue dans votre espace consultant</h1>
+    {% if onglet == 'candidat' and fiche == true %} {% include 'consultant/fiche_candidat.html.twig'%}{% endif %}
+    {% if onglet == 'recruteur' and fiche == true %} {% include 'consultant/fiche_recruteur.html.twig'%}{% endif %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item consultant ">
+            <a class="nav-link {% if onglet == 'profil' %} active {% endif %}"
+                href="{{path('app_consultant')}}">Profil</a>
+        </li>
+        <li class="nav-item candidat ">
+            <a class="nav-link {% if onglet == 'candidat' %} active {% endif %}"
+                href="{{path('app_consultant_candidat')}}">Candidats</a>
+        </li>
+        <li class="nav-item recruteur">
+            <a class="nav-link {% if onglet == 'recruteur' %} active {% endif %} "
+                href="{{path('app_consultant_recruteur')}}">Recruteurs</a>
+        </li>
+        <li class="nav-item annonce">
+            <a class="nav-link {% if onglet == 'annonce' %} active {% endif %} "
+                href="{{path('app_consultant_annonce')}}">Annonces</a>
+        </li>
 
 
 
-                    </tr>
-                </thead>
-                <tbody id="idrecruteur">
-                    {% for recruteur in recruteurs %}
-                    {% if recruteur [1].valider == 0 %}
-                    <tr class="novalid  {% if  loop.index % 2 == 0  %} paire {% else %} impaire {% endif %}">
-                        <td>{{recruteur[1].Email}}</td>
-                        <td>{{recruteur [0].nom}}</td>
-                        <td>{{recruteur [0].etablissement}}</td>
-                        <td>{{recruteur [0].ville}}</td>
-                        <td><button class="btn btn-primary">Valider</button></td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                    {% for recruteur in recruteurs %}
-                    {% if recruteur [1].valider == 1 %}
-                    <tr class="valid  {% if  loop.index % 2 == 0  %} paire {% else %} impaire {% endif %}">
-                        <td>{{recruteur[1].Email}}</td>
-                        <td>{{recruteur [0].nom}}</td>
-                        <td>{{recruteur [0].etablissement}}</td>
-                        <td>{{recruteur [0].ville}}</td>
-                        <td><button class="btn btn-primary">Valider</button></td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    </ul>
+    <div class="content  {% if onglet == 'profil' %} consultant {% else %}  {{onglet}} {% endif %}">
+        {% if onglet == 'profil' %} {% include 'consultant/profil_consultant.html.twig'%}{% endif %}
+        {% if onglet == 'candidat' %} {% include 'consultant/liste_candidat.html.twig'%}{% endif %}
+        {% if onglet == 'recruteur' %} {% include 'consultant/liste_recruteur.html.twig'%}{% endif %}
+        {% if onglet == 'annonce' %} {% include 'consultant/liste_annonce.html.twig'%}{% endif %}
+
+
     </div>
-
 </div>
 {% endblock %}

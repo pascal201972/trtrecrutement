@@ -1,0 +1,30 @@
+<h3 class="titre-acordeon" id="idvalid"><strong>Annonces validées</strong>
+    <a class=" " href="#idnonvalid">Annonces non validées</a>
+</h3>
+<div class="tbody box-accordeon">
+
+    {% for annonce in listeannonces %}
+    {% if annonce.valider == 1 %}
+    <article class="valid  {% if  loop.index % 2 == 0  %} paire {% else %} impaire {% endif %} ">
+
+        {% include 'consultant/element_annonce.html.twig'%}
+        <div class="row">
+            <div class="col-xxl-6 action">
+                <a class="voir btn" href="{{path('app_consultant_annonce_voir',{'id':annonce.id})}}">{% include
+                    'svg/svg_voir.html.twig' %}
+                </a>
+            </div>
+            <div class="col-xxl-6 action">
+                <a href="{{path('app_consultant_annonce_desactivation',{'id':annonce.id})}}"
+                    class="btn btn-secondary">Désactiver</a>
+                {% include 'svg/svg_valider_check.html.twig' %}
+            </div>
+        </div>
+        <div>
+            <h3>Liste des candidatures</h3>
+
+        </div>
+    </article>
+    {% endif %}
+    {% endfor %}
+</div>
